@@ -1,7 +1,6 @@
 (function() {
     'use strict';
     describe('Test Cases in Google Page', function () {
-
         browser.ignoreSynchronization = true;
         var VariableFile = require('./variables.js');
         var url = "http://google.com/";
@@ -11,7 +10,6 @@
 
             variableFile = new VariableFile();
             browser.get(url);
-
         });
         afterEach(function () {
             browser.close();
@@ -32,12 +30,13 @@
         describe('To open google browser and search the text "Thought For The Day"', function () {
             it('To click the link Thought For The Day', function () {
 
-                browser.sleep(1000);
+                var driver=browser.driver;
+                driver.manage().timeouts().implicitlyWait(10000).then(function(){
+                    expect(element(by.id('lst-ib')).isPresent()).toBeTruthy();
+                });
                 variableFile.searchTextBox.sendKeys('Thought for the Day');
-                browser.sleep(1000);
                 expect(variableFile.searchIcon.isDisplayed());
                 variableFile.searchIcon.click();
-                browser.sleep(1000);
                 variableFile.clickLink.click();
                 printTheTitleOfThePage();
                 checkingTitleOfThePage('Thought For The Day');
